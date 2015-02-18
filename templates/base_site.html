@@ -105,6 +105,27 @@
                        container.html(data);
                     })
                 });
+                $('#comments-wrapper').on('click', 'a.comment-reply-link', function() {
+                    {% if not request.user.is_authenticated %}
+                    alert('You must be authenticated');
+                    {% else %}
+                    var comment = $(this);
+                    var my = function() {
+                        var textarea = comment.parents('.comment-list-wrapper').find('textarea');
+
+                        if (textarea.length < 1) {
+                            setTimeout(my, 200);
+                            return
+                        }
+
+                        $('html, body').animate({
+                            scrollTop: textarea.offset().top
+                        }, 1000, function() {textarea.focus();});
+                    }
+
+                    my()
+                    {% endif %}
+                })
             });
         </script>
 

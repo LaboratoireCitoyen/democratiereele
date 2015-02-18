@@ -53,6 +53,7 @@ PIPELINE_CSS = {
             'foundation/css/normalize.css',
             'foundation/css/foundation.css',
             'autocomplete_light/style.css',
+            'fluent_comments/css/ajaxcomments.css',
         ),
         'output_filename': 'css/style.css',
         'extra_context': {
@@ -69,6 +70,7 @@ PIPELINE_JS = {
             'autocomplete_light/addanother.js',
             'autocomplete_light/text_widget.js',
             'autocomplete_light/remote.js',
+            'fluent_comments/js/ajaxcomments.js',
             'respond/dest/respond.src.js',
             'modernizr/modernizr.js',
             'html5shiv/dist/html5shiv.js',
@@ -111,6 +113,7 @@ STATICFILES_FINDERS = (
 # Application definition
 
 INSTALLED_APPS = (
+    'fluent_comments',
     'threadedcomments',
 
     'django.contrib.admin',
@@ -122,6 +125,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'django_gravatar',
+    'django_markup',
     'djangobower',
     'pipeline',
     'taggit',
@@ -129,7 +134,6 @@ INSTALLED_APPS = (
     'decision',
     'complaints',
     'vote',
-    'django_markup',
     'crispy_forms',
     'crispy_forms_foundation',
     'autocomplete_light',
@@ -143,7 +147,8 @@ SITE_ID = 1
 
 CRISPY_TEMPLATE_PACK = 'foundation-5'
 
-COMMENTS_APP = 'threadedcomments'
+FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url', 'title')
+COMMENTS_APP = 'fluent_comments'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',

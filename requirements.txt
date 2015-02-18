@@ -8,4 +8,5 @@ django-threadedcomments
 django-annoying
 django-cities-light
 django-markup
+markdown
 unidecode

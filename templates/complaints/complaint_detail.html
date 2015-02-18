@@ -52,6 +52,11 @@ h1 {
     vertical-align: middle;
     box-sizing: border-box;
 }
+
+.comment-wrapper img {
+    float: left;
+    margin-right: .5em;
+}
 </style>
 {% endblock %}
 
@@ -97,18 +102,27 @@ h1 {
 
 <div class="row">
     <div class="large-6 columns">
-        <h2>{% trans 'Recent Comments' %}</h2>
+        {% get_comment_count for object as comments_count %}
 
-        {% include 'comments/list.html' %}
+        <div id="comments-wrapper">
+          {% if comments_count %}
+          <h3 class="has-comments-title">{% blocktrans with entry_title=object count comments_count=comments_count %}{{ comments_count }} comment to {{ entry_title }}{% plural %}{{ comments_count }} comments to {{ entry_title }}{% endblocktrans %}</h3>
+            {% render_comment_list for object %}
 
-        {% if comment_count == 0 %}
-            {% render_comment_form for object %}
-        {% else %}
-        <p>
-            <a href="{% url 'complaints_complaint_comment_list' object.slug %}">{% blocktrans %}See all {{ comment_count }} comments and comment submission form{% endblocktrans %}</a>
-        </p>
-        {% endif %}
+          {% else %}
+            {# no comments yet, invite #}
+              <h3 class="no-comments-title">{% trans "Leave a reply" %}</h3>
+
+              {# include the empty list, so the <div> is there for Ajax code #}
+              {% render_comment_list for object %}
+          {% endif %}
+        </div>
+
+        <div id="comments-form-wrapper">
+          {% render_comment_form for object %}
+        </div>
     </div>
+
     <div class="large-6 columns">
         <h2>{% trans 'Recent Actions' %}</h2>
 
