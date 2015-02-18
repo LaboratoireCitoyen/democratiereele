@@ -58,6 +58,7 @@
                         <a 
                             href="{% url 'complaints_complaint_create' %}"
                             title="{% trans 'Post your complaint' %}"
+                            class="login-required"
                             >{% trans 'Post your complaint' %}</a>
                         </a>
                     </li>
@@ -95,6 +96,19 @@
         {% block body %}
         {% endblock %}
 
+        <div id="login-required-modal" class="reveal-modal" data-reveal>
+            <h2>{% trans 'Please authenticate' %}</h2>
+            {% url 'account_login' as login_url %}
+            {% url 'account_signup' as signup_url %}
+            <p class="lead">
+            {% blocktrans %}Please <a href="{{ login_url }}">login</a> or <a href="{{ signup_url }}">signup</a>{% endblocktrans %}
+            </p>
+            <p>
+            {% trans 'We require authentication to post complaints, actions, comments and vote, to fight against spam.' %}
+            </p>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
+
         <script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}"></script>
         {% include 'autocomplete_light/_ajax_csrf.html' %}
         {% javascript 'script' %}
@@ -112,15 +126,19 @@
                     window.location.href = choice.attr('href');
                 });
                 $('body').on('click', '[data-post]', function() {
+                    {% if not request.user.is_authenticated %}
+                    $('#login-required-modal').foundation('reveal', 'open');
+                    {% else %}
                     var container = $(this).parent();
 
                     $.post($(this).attr('data-post'), function(data) {
                        container.html(data);
                     })
+                    {% endif %}
                 });
                 $('#comments-wrapper').on('click', 'a.comment-reply-link', function() {
                     {% if not request.user.is_authenticated %}
-                    alert('You must be authenticated');
+                    $('#login-required-modal').foundation('reveal', 'open');
                     {% else %}
                     var comment = $(this);
                     var my = function() {
@@ -139,6 +157,12 @@
                     my()
                     {% endif %}
                 })
+                {% if not request.user.is_authenticated %}
+                $('body').on('click', '.login-required', function(e) {
+                    $('#login-required-modal').foundation('reveal', 'open');
+                    e.preventDefault();
+                });
+                {% endif %}
             });
         </script>
 
