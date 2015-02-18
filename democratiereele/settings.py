@@ -140,7 +140,7 @@ INSTALLED_APPS = (
     'rules_light',
     'debug_toolbar',
     'easy_thumbnails',
-    'registration',
+    'account',
 )
 
 SITE_ID = 1
