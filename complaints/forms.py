@@ -31,7 +31,8 @@ class ComplaintForm(autocomplete_light.ModelForm):
                     Row('tags'),
                     Row(Submit('submit', _('Submit'),
                         css_class='success'),
-                    )
+                    ),
+                    css_class='login-required',
                 )
             ),
         )
@@ -58,7 +59,8 @@ class ActionForm(autocomplete_light.ModelForm):
                     Row('complaint'),
                     Row(Submit('submit', _('Submit'),
                         css_class='success'),
-                    )
+                    ),
+                    css_class='login-required',
                 )
             ),
         )
