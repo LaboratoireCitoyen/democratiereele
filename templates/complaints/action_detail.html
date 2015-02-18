@@ -25,7 +25,7 @@
         <a href="{{ object.complaint.get_absolute_url }}" title="{{ object.complaint }}">{{ object.complaint }}</a>
     </li> 
     <li>
-        <a href="{% url 'complaints_complaint_action_list' object.complaint.slug %}">{% trans 'Actions' %}</a>
+        {% trans 'Actions' %}
     </li>
     <li>
         <a class="current">{{ object }}</a>
