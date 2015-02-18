@@ -34,8 +34,14 @@
     {% gravatar comment.user.email 50 %}
 
     <div class="comment-text">
-        {{ comment.comment|linebreaks|apply_markup:'markdown' }}
+        {{ comment.comment|apply_markup:'markdown'|linebreaks }}
     </div>
+
+    {% if comment.pk %}
+    <div class="comment-votes">
+        {% include 'decision/_poll_vote.html' with object=comment %}
+    </div>
+    {% endif %}
 </div>
 
 <div style="clear: both"></div>

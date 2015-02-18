@@ -7,7 +7,6 @@ from decision.models import Poll
 from autoslug import AutoSlugField
 from django_markup.fields import MarkupField
 from taggit.managers import TaggableManager
-from vote.managers import VotableManager
 
 
 class Complaint(Poll):

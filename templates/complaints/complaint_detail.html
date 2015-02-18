@@ -106,12 +106,11 @@ h1 {
 
         <div id="comments-wrapper">
           {% if comments_count %}
-          <h3 class="has-comments-title">{% blocktrans with entry_title=object count comments_count=comments_count %}{{ comments_count }} comment to {{ entry_title }}{% plural %}{{ comments_count }} comments to {{ entry_title }}{% endblocktrans %}</h3>
+          <h3 class="has-comments-title">{% blocktrans with entry_title=object count comments_count=comments_count %}{{ comments_count }} comment{% plural %}{{ comments_count }} comments{% endblocktrans %}</h3>
             {% render_comment_list for object %}
 
           {% else %}
-            {# no comments yet, invite #}
-              <h3 class="no-comments-title">{% trans "Leave a reply" %}</h3>
+              <h3 class="no-comments-title">{% trans "Leave a comment" %}</h3>
 
               {# include the empty list, so the <div> is there for Ajax code #}
               {% render_comment_list for object %}

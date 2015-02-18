@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    'project_specific',
     'django_gravatar',
     'django_markup',
     'djangobower',
@@ -133,7 +134,6 @@ INSTALLED_APPS = (
     'cities_light',
     'decision',
     'complaints',
-    'vote',
     'crispy_forms',
     'crispy_forms_foundation',
     'autocomplete_light',
@@ -149,7 +149,7 @@ AUTHENTICATION_BACKENDS = ['django-dual-authentication.backends.DualAuthenticati
 CRISPY_TEMPLATE_PACK = 'foundation-5'
 
 FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url', 'title')
-COMMENTS_APP = 'fluent_comments'
+COMMENTS_APP = 'project_specific'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
