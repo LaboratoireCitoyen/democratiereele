@@ -1,5 +1,6 @@
 django-bower
 django-pipeline
+django-dual-authentication
 django-user-accounts
 django-debug-toolbar
 django-rules-light

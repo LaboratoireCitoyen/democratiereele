@@ -144,6 +144,7 @@ INSTALLED_APPS = (
 )
 
 SITE_ID = 1
+AUTHENTICATION_BACKENDS = ['django-dual-authentication.backends.DualAuthentication']
 
 CRISPY_TEMPLATE_PACK = 'foundation-5'
 
