@@ -1,6 +1,7 @@
 from django.views import generic
 from django.db.models import Q
 
+from taggit.models import Tag
 from complaints.models import Complaint, Action
 from django.contrib.comments.models import Comment
 from cities_light.models import City
@@ -18,6 +19,7 @@ class AutocompleteView(generic.TemplateView):
             Q(name__icontains=q)|Q(description__icontains=q))[:7]
         context['actions'] = Action.objects.filter(
             Q(name__icontains=q)|Q(description__icontains=q))[:7]
+        context['tags'] = Tag.objects.filter(name__icontains=q)[:7]
 
         return context
 

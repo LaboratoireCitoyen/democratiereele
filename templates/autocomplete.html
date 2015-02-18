@@ -1,18 +1,21 @@
 {% load i18n %}
-{% if complaints|length %}
-    {% for complaint in complaints %}
-        <a 
-            class="choice" 
-            href="{{ complaint.get_absolute_url }}"
-            title="{{ complaint }}">{{ complaint }}</a>
-    {% endfor %}
-{% endif %}
+{% for complaint in complaints %}
+    <a 
+        class="choice" 
+        href="{{ complaint.get_absolute_url }}"
+        title="{{ complaint }}">{{ complaint }}</a>
+{% endfor %}
 
-{% if actions|length %}
-    {% for complaint in actions %}
-        <a 
-            class="choice" 
-            href="{{ complaint.get_absolute_url }}"
-            title="{{ complaint }}">{{ complaint }}</a>
-    {% endfor %}
-{% endif %}
+{% for action in actions %}
+    <a 
+        class="choice" 
+        href="{{ action.get_absolute_url }}"
+        title="{{ action }}">{{ action }}</a>
+{% endfor %}
+
+{% for tag in tags %}
+    <a 
+        class="choice" 
+        href="{% url 'complaints_complaint_list' 'all' 'all' 'all' tag.name %}"
+        title="{{ tag.name }}">{{ tag.name }}</a>
+{% endfor %}
