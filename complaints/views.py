@@ -1,27 +1,10 @@
 from django.views import generic
 from django.core.urlresolvers import reverse
-from django.contrib.contenttypes.models import ContentType
-
-from crispy_forms.helper import FormHelper
-from crispy_forms_foundation.layout import (
-    Layout, Fieldset, HTML, Row, Column, Panel,
-    ButtonHolder, ButtonHolderPanel, ButtonGroup, Button, Submit,
-    InlineField, InlineJustifiedField,
-    SwitchField, InlineSwitchField
-)
-
-from threadedcomments.models import ThreadedComment
 
 import rules_light
 
 from .models import Complaint, Action
 from .forms import ComplaintForm, ActionForm
-
-
-def get_comments_flat(obj):
-    ctype = ContentType.objects.get_for_model(obj)
-    return ThreadedComment.objects.filter(
-            content_type=ctype, object_pk=obj.pk).order_by('-submit_date')
 
 
 @rules_light.class_decorator
