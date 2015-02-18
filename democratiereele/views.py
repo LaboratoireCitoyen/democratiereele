@@ -30,9 +30,9 @@ class HomeView(generic.TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(HomeView, self).get_context_data(*args, **kwargs)
 
-        context['complaints'] = Complaint.objects.all()[:7]
-        context['actions'] = Action.objects.all()[:7]
-        context['comments'] = Comment.objects.all()[:7]
+        context['complaints'] = Complaint.objects.all()[:3]
+        context['actions'] = Action.objects.all()[:3]
+        context['comments'] = Comment.objects.all()[:3]
         context['cities'] = City.objects.exclude(complaint=None)
 
         return context
