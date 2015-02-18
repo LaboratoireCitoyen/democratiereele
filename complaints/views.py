@@ -49,33 +49,6 @@ class ComplaintDetailView(generic.DetailView):
         return c
 
 
-@rules_light.class_decorator
-class ComplaintActionsView(ComplaintDetailView):
-    model = Complaint
-    queryset = Complaint.objects.select_related('vote', 'action')
-
-    def get_context_data(self, *args, **kwargs):
-        c = super(ComplaintActionsView, self).get_context_data(*args, **kwargs)
-        c['action_form'] = ActionForm(
-                initial={'complaint': self.object.pk},
-                form_action=reverse('complaints_action_create'))
-        return c
-
-
-class ComplaintCommentsView(generic.ListView):
-    model = Complaint
-
-    def get_queryset(self):
-        return ThreadedComment.objects.filter()
-
-    def get_context_data(self, *args, **kwargs):
-        c = super(ComplaintCommentsView, self).get_context_data(*args, **kwargs)
-        c['action_form'] = ActionForm(
-                initial={'complaint': self.object.pk},
-                form_action=reverse('complaints_action_create'))
-        return c
-
-
 class ComplaintListView(generic.ListView):
     model = Complaint
 
