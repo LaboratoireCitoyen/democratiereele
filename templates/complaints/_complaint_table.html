@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load thumbnail %}
 
 {% for object in object_list %}
 <div class="row">
@@ -6,16 +7,21 @@
             href="{{ object.get_absolute_url }}"
             title="{{ object }}">{{ object }}</a></h2>
 
-    <p>{{ object.description }}</p>
-
-    {% if object.city %}
-    <p>
-        <a href="{% url 'complaints_complaint_list' object.complaint.city.region.country.slug object.complaint.city.region.slug object.complaint.city.slug 'all' %}">{{ object.complaint.city }}</a>
-    </p>
+    {% if object.photo %}
+        <img class="complaint-photo" src="{{ object.photo|thumbnail_url:'rectangle_0' }}" />
     {% endif %}
+    
+    <div>
+        <p>{{ object.description }}</p>
 
-    {% include 'complaints/_tags.html' with tag_list=object.tags.all %}
-    {% include 'decision/_poll_vote.html' %}
-</tr>
+        {% if object.city %}
+        <p>
+            <a href="{% url 'complaints_complaint_list' object.complaint.city.region.country.slug object.complaint.city.region.slug object.complaint.city.slug 'all' %}">{{ object.complaint.city }}</a>
+        </p>
+        {% endif %}
+
+        {% include 'complaints/_tags.html' with tag_list=object.tags.all %}
+        {% include 'decision/_poll_vote.html' %}
+    </div>
 </div>
 {% endfor %}

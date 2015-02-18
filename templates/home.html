@@ -1,6 +1,14 @@
 {% extends 'base_site.html' %}
 {% load i18n %}
 
+{% block extra_head %}
+<style type="text/css">
+.row img.complaint-photo {
+    width: 98%;
+}
+</style>
+{% endblock %}
+
 {% block body %}
 <div class="row">
     <div class="large-6 columns">

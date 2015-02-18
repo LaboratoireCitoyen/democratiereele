@@ -34,15 +34,6 @@
     display: none;
 }
 
-#complaint_photo {
-    float: left;
-    margin-right: 1em;
-}
-
-h1 {
-    font-size: 2rem;
-}
-
 .header {
     display: table;
 }
@@ -80,7 +71,7 @@ h1 {
 
 <div class="row">
     {% if object.photo %}
-        <img id="complaint_photo" src="{{ object.photo|thumbnail_url:'rectangle_0' }}" />
+        <img class="complaint-photo" src="{{ object.photo|thumbnail_url:'rectangle_0' }}" />
     {% endif %}
 
     <p>
