@@ -19,16 +19,6 @@ urlpatterns = patterns('',
         name='complaints_complaint_create'
     ),
     url(
-        r'^(?P<slug>[\w-]+)/actions/$', 
-        views.ComplaintActionsView.as_view(),
-        name='complaints_complaint_action_list'
-    ),
-    url(
-        r'^(?P<slug>[\w-]+)/comments/$', 
-        views.ComplaintCommentsView.as_view(),
-        name='complaints_complaint_comment_list'
-    ),
-    url(
         r'^(?P<slug>[\w-]+)/$', 
         views.ComplaintDetailView.as_view(),
         name='complaints_complaint_detail'

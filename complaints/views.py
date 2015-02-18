@@ -43,14 +43,6 @@ class ComplaintDetailView(generic.DetailView):
     def get_context_data(self, *args, **kwargs):
         c = super(ComplaintDetailView, self).get_context_data(*args, **kwargs)
 
-        flat_comments = get_comments_flat(self.object)
-        c['comment_list'] = flat_comments[:3]
-        c['comment_count'] = flat_comments.count()
-
-        actions = self.object.actions.all()
-        c['action_list'] = actions.order_by('-creation_datetime')[:3]
-        c['action_count'] = actions.count()
-
         c['action_form'] = ActionForm(
                 initial={'complaint': self.object.pk},
                 form_action=reverse('complaints_action_create'))

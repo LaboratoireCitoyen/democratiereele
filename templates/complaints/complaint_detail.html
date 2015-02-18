@@ -34,16 +34,6 @@
     display: none;
 }
 
-.header {
-    display: table;
-}
- 
-.header div {
-    display: table-cell;
-    vertical-align: middle;
-    box-sizing: border-box;
-}
-
 .comment-wrapper img {
     float: left;
     margin-right: .5em;
@@ -52,21 +42,8 @@
 {% endblock %}
 
 {% block body %}
-<div class="row header">
-    <div style="width: 80%">
-        <h1>{{ object }}</h1>
-    </div>
-    <div style="width: 20%">
-        <a
-         href="{% url 'complaints_complaint_action_list' object.slug %}"
-         title="{% blocktrans %}Actions for complaint {{ object }}{% endblocktrans %}"
-         >{% trans 'Actions' %}</a>
-
-        <a
-         href="{% url 'complaints_complaint_comment_list' object.slug %}"
-         title="{% blocktrans %}Comments for complaint {{ object }}{% endblocktrans %}"
-         >{% trans 'Comments' %}</a>
-    </div>
+<div class="row">
+    <h1>{{ object }}</h1>
 </div>
 
 <div class="row">
@@ -93,6 +70,14 @@
 
 <div class="row">
     <div class="large-6 columns">
+        <h2>{% trans 'Actions' %}</h2>
+
+        {% include 'complaints/_action_table.html' with object_list=action_list %}
+
+        {% crispy action_form %}
+    </div>
+
+    <div class="large-6 columns">
         {% get_comment_count for object as comments_count %}
 
         <div id="comments-wrapper">
@@ -111,20 +96,6 @@
         <div id="comments-form-wrapper">
           {% render_comment_form for object %}
         </div>
-    </div>
-
-    <div class="large-6 columns">
-        <h2>{% trans 'Recent Actions' %}</h2>
-
-        {% include 'complaints/_action_table.html' with object_list=action_list %}
-
-        {% if action_count == 0 %}
-            {% crispy action_form %}
-        {% else %}
-        <p>
-            <a href="{% url 'complaints_complaint_action_list' object.slug %}">{% blocktrans %}See all {{ action_count }} actions and action submission form{% endblocktrans %}</a>
-        </p>
-        {% endif %}
     </div>
 </div>
 {% endblock %}
