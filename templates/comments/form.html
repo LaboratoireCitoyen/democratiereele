@@ -1,0 +1,17 @@
+{% load comments i18n %}
+{% if request.user.is_authenticated %}
+<form action="{% comment_form_target %}" method="post">{% csrf_token %}
+
+    <fieldset>
+        <legend>{% trans 'Submit a comment' %}</legend>
+        <input type="hidden" name="next" value="{{ request.path }}" />
+        {{ form.comment }}
+        {{ form.content_type }}
+        {{ form.object_pk }}
+        {{ form.timestamp }}
+        {{ form.security_hash }}
+
+        <input type="submit" name="submit" value="{% trans 'Submit' %}" class="submit button success" id="submit-id-submit" />
+    </fieldset>
+</form>
+{% endif %}

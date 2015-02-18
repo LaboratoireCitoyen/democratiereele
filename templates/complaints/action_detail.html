@@ -1,0 +1,49 @@
+{% extends 'complaints/base.html' %}
+{% load i18n crispy_forms_tags %}
+{% load comments %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumbs"> 
+    <li>
+        <a href="/">{% trans 'Home' %}</a>
+    </li> 
+    <li>
+        <a href="{% url 'complaints_complaint_list' 'all' 'all' 'all' 'all' %}" title="{% trans 'Complaints' %}">{% trans 'Complaints' %}</a>
+    </li>
+    {% if object.complaint.city %}
+    <li>
+        <a href="{% url 'complaints_complaint_list' object.complaint.city.region.country.slug 'all' 'all' 'all' %}">{{ object.complaint.city.region.country.name }}</a>
+    </li>
+    <li>
+        <a href="{% url 'complaints_complaint_list' object.complaint.city.region.country.slug object.complaint.city.region.slug 'all' 'all' %}">{{ object.complaint.city.region.name }}</a>
+    </li>
+    <li>
+        <a href="{% url 'complaints_complaint_list' object.complaint.city.region.country.slug object.complaint.city.region.slug object.complaint.city.slug 'all' %}">{{ object.complaint.city.name }}</a>
+    </li>
+    {% endif %}
+    <li>
+        <a href="{{ object.complaint.get_absolute_url }}" title="{{ object.complaint }}">{{ object.complaint }}</a>
+    </li> 
+    <li>
+        <a href="{% url 'complaints_complaint_action_list' object.complaint.slug %}">{% trans 'Actions' %}</a>
+    </li>
+    <li>
+        <a class="current">{{ object }}</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <h1>{{ object }}</h1>
+    <h4>{% trans 'Complaint' %}: <a href="{{ object.complaint.get_absolute_url }}" title="{{ object.complaint }}">{{ object.complaint }}</a></h4>
+    <p>{{ object.description }}</p>
+
+    {% include 'decision/_poll_vote.html' %}
+
+    <h2>{% trans 'Comments' %}</h2>
+
+    {% render_comment_list for object %}
+    {% render_comment_form for object %}
+</div>
+{% endblock %}

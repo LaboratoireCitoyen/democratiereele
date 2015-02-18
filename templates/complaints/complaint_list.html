@@ -1,0 +1,10 @@
+{% extends 'complaints/base.html' %}
+{% load i18n %}
+
+{% block body %}
+    <div class="row">
+        <h1>{% trans 'Complaints reported' %}</h1>
+    </div>
+
+    {% include 'complaints/_complaint_table.html' %}
+{% endblock %}

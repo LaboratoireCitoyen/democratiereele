@@ -1,0 +1,9 @@
+{% load i18n %}
+
+<ul style="margin-left: 0">
+    {% for tag in tag_list %}
+    <li style="display: inline">
+        <a class="label success" href="{% url 'complaints_complaint_list' 'all' 'all' 'all' tag %}" title="{% blocktrans %}All complaints with tag {{ tag }}{% endblocktrans %}">{{ tag }}</a>
+    </li>
+    {% endfor %}
+</ul>

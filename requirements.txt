@@ -1,0 +1,11 @@
+django-bower
+django-pipeline
+django-user-accounts
+django-debug-toolbar
+django-rules-light
+django-autoslug
+django-threadedcomments
+django-annoying
+django-cities-light
+django-markup
+unidecode

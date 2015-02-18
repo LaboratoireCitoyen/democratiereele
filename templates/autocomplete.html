@@ -1,0 +1,18 @@
+{% load i18n %}
+{% if complaints|length %}
+    {% for complaint in complaints %}
+        <a 
+            class="choice" 
+            href="{{ complaint.get_absolute_url }}"
+            title="{{ complaint }}">{{ complaint }}</a>
+    {% endfor %}
+{% endif %}
+
+{% if actions|length %}
+    {% for complaint in actions %}
+        <a 
+            class="choice" 
+            href="{{ complaint.get_absolute_url }}"
+            title="{{ complaint }}">{{ complaint }}</a>
+    {% endfor %}
+{% endif %}

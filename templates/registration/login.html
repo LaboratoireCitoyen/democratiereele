@@ -1,0 +1,14 @@
+{% extends 'base_site.html' %}
+{% load i18n crispy_forms_tags %}
+
+{% block body %}
+<div class="row">
+    <form action="" method="post">
+        {% crispy form no_form_tag %}
+        <input type="hidden" next="/" />
+        <input type="submit" name="submit" value="{% trans 'Login' %}" class="submit button success" id="submit-id-submit" />
+    </form>
+
+    <a href="{% url 'password_reset' %}">{% trans 'Password reset' %}</a>
+</div>
+{% endblock %}

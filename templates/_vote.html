@@ -1,0 +1,25 @@
+{% load i18n %}
+
+<span 
+     data-post="{% url 'decision_poll_vote' object.pk '-1' %}"
+     class="button alert"
+     >
+    {% trans 'Against' %}
+    {{ object.get_against_count }}
+</span>
+
+<span 
+     data-post="{% url 'decision_poll_vote' object.pk '0' %}"
+     class="button info"
+     >
+    {% trans 'Abstain' %}
+    {{ object.get_abstain_count }}
+</span>
+
+<span 
+     data-post="{% url 'decision_poll_vote' object.pk '1' %}"
+     class="button success"
+     >
+    {% trans 'Agree' %}
+    {{ object.get_agree_count }}
+</span>

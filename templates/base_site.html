@@ -1,0 +1,114 @@
+<!doctype html>
+<!--[if IE 9]><html class="lt-ie10" lang="fr" > <![endif]-->
+<html class="no-js" lang="fr">
+{% load pipeline %}
+{% load static from staticfiles %}
+{% load i18n %}
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        {% stylesheet 'style' %}
+        {% block extra_head %}{% endblock %}
+    </head>
+    <body>
+        <nav class="top-bar" data-topbar role="navigation"> 
+            <ul class="title-area"> 
+                <li class="name"> 
+                    <h1><a href="/">Titre</a></h1> 
+                </li> 
+                <li class="toggle-topbar menu-icon">
+                    <a href="#"><span>Menu</span></a>
+                </li>
+            </ul> 
+            <section class="top-bar-section"> 
+                <ul class="right">
+                    <li class="has-form"> 
+                        <div class="row collapse"> 
+                            <div class="large-8 small-9 columns"> 
+                                <input id="autocomplete" type="text" placeholder="Find Stuff">
+                            </div> 
+                            <div class="large-4 small-3 columns"> 
+                                <a href="#" class="alert button expand">Search</a> 
+                            </div> 
+                        </div> 
+                    </li>
+                </ul>
+                <ul class="left">
+                    <li>
+                        <a 
+                            href="{% url 'complaints_complaint_list' 'all' 'all' 'all' 'all' %}"
+                            title="{% trans 'Complaint' %}"
+                            >{% trans 'Complaints' %}</a>
+                        </a>
+                    </li>
+                    <li>
+                        <a 
+                            href="{% url 'complaints_complaint_create' %}"
+                            title="{% trans 'Post your complaint' %}"
+                            >{% trans 'Post your complaint' %}</a>
+                        </a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li class="has-dropdown menu-icon"> 
+                        <a href="#">{{ request.user }}</a> 
+                        <ul class="dropdown"> 
+                            <li class="active">
+                                <a href="{% url 'account_logout' %}">{% trans 'Logout' %}</a>
+                            </li> 
+                        </ul> 
+                    </li> 
+                    {% else %}
+                    <li>
+                        <a 
+                            href="{% url 'account_login' %}"
+                            title="{% trans 'Login' %}"
+                            >{% trans 'Login' %}</a>
+                        </a>
+                    </li>
+                    <li>
+                        <a 
+                            href="{% url 'account_signup' %}"
+                            title="{% trans 'Signup' %}"
+                            >{% trans 'Signup' %}</a>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul> 
+            </section> 
+        </nav>
+
+        {% block breadcrumbs %}
+        {% endblock %}
+        {% block body %}
+        {% endblock %}
+
+        <script type="text/javascript" src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+        {% include 'autocomplete_light/_ajax_csrf.html' %}
+        {% javascript 'script' %}
+
+        <script>
+            $(document).foundation();
+            var doc = document.documentElement;
+            doc.setAttribute('data-useragent', navigator.userAgent);
+
+            $(document).ready(function() {
+                $('#autocomplete').yourlabsAutocomplete({
+                    url: '{% url 'autocomplete' %}',
+                    choiceSelector: '.choice',
+                }).input.bind('selectChoice', function(e, choice, autocomplete) {
+                    window.location.href = choice.attr('href');
+                });
+                $('body').on('click', '[data-post]', function() {
+                    var container = $(this).parent();
+
+                    $.post($(this).attr('data-post'), function(data) {
+                       container.html(data);
+                    })
+                });
+            });
+        </script>
+
+        {% block extra_body %}
+        {% endblock %}
+    </body>
+</html>

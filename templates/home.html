@@ -1,0 +1,45 @@
+{% extends 'base_site.html' %}
+{% load i18n %}
+
+{% block body %}
+<div class="row">
+    <div class="large-6 columns">
+        <h2>{% trans 'Complaints reported' %}</h2>
+        {% include 'complaints/_complaint_table.html' with object_list=complaints %}
+    </div>
+
+    <div class="large-6 columns">
+        <h2>{% trans 'Actions proposed' %}</h2>
+        {% include 'complaints/_action_table.html' with object_list=actions %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-6 columns">
+        <h2>{% trans 'Comments posted' %}</h2>
+        <dl id="comments">
+            {% for comment in comments %}
+            <dt id="c{{ comment.id }}">
+                {{ comment.submit_date }} - {{ comment.name }}
+            </dt>
+            <dd>
+                <p>{{ comment.comment }}</p>
+                {{ comment.object }}
+            </dd>
+            {% endfor %}
+        </dl>
+    </div>
+
+    <div class="large-6 columns">
+        <h2>{% trans 'Cities in movement' %}</h2>
+        <ul>
+            {% for city in cities %}
+            <li>
+                <a href="{% url 'complaints_complaint_list' city.region.country.slug city.region.slug city.slug 'all' %}"
+                   title="{{ city }}">{{ city }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

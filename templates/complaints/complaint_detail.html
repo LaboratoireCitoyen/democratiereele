@@ -1,0 +1,126 @@
+{% extends 'complaints/base.html' %}
+{% load i18n crispy_forms_tags %}
+{% load comments %}
+{% load thumbnail %}
+
+{% block breadcrumbs %}
+<ul class="breadcrumbs"> 
+    <li>
+        <a href="/">{% trans 'Home' %}</a>
+    </li> 
+    <li>
+        <a href="{% url 'complaints_complaint_list' 'all' 'all' 'all' 'all' %}" title="{% trans 'Complaints' %}">{% trans 'Complaints' %}</a>
+    </li>
+    {% if object.city %}
+    <li>
+        <a href="{% url 'complaints_complaint_list' object.city.region.country.slug 'all' 'all' 'all' %}">{{ object.city.region.country.name }}</a>
+    </li>
+    <li>
+        <a href="{% url 'complaints_complaint_list' object.city.region.country.slug object.city.region.slug 'all' 'all' %}">{{ object.city.region.name }}</a>
+    </li>
+    <li>
+        <a href="{% url 'complaints_complaint_list' object.city.region.country.slug object.city.region.slug object.city.slug 'all' %}">{{ object.city.name }}</a>
+    </li>
+    {% endif %}
+    <li>
+        <a class="current">{{ object }}</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block extra_head %}
+<style type="text/css">
+#div_id_complaint {
+    display: none;
+}
+
+#complaint_photo {
+    float: left;
+    margin-right: 1em;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+.header {
+    display: table;
+}
+ 
+.header div {
+    display: table-cell;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="row header">
+    <div style="width: 80%">
+        <h1>{{ object }}</h1>
+    </div>
+    <div style="width: 20%">
+        <a
+         href="{% url 'complaints_complaint_action_list' object.slug %}"
+         title="{% blocktrans %}Actions for complaint {{ object }}{% endblocktrans %}"
+         >{% trans 'Actions' %}</a>
+
+        <a
+         href="{% url 'complaints_complaint_comment_list' object.slug %}"
+         title="{% blocktrans %}Comments for complaint {{ object }}{% endblocktrans %}"
+         >{% trans 'Comments' %}</a>
+    </div>
+</div>
+
+<div class="row">
+    {% if object.photo %}
+        <img id="complaint_photo" src="{{ object.photo|thumbnail_url:'rectangle_0' }}" />
+    {% endif %}
+
+    <p>
+        {{ object.description }}
+    </p>
+
+    {% if object.city %}
+    <p>
+        {{ object.city }}
+    </p>
+    {% endif %}
+
+    {% include 'complaints/_tags.html' with tag_list=object.tags.all %}
+
+    <p>
+        {% include 'decision/_poll_vote.html' %}
+    </p>
+</div>
+
+<div class="row">
+    <div class="large-6 columns">
+        <h2>{% trans 'Recent Comments' %}</h2>
+
+        {% include 'comments/list.html' %}
+
+        {% if comment_count == 0 %}
+            {% render_comment_form for object %}
+        {% else %}
+        <p>
+            <a href="{% url 'complaints_complaint_comment_list' object.slug %}">{% blocktrans %}See all {{ comment_count }} comments and comment submission form{% endblocktrans %}</a>
+        </p>
+        {% endif %}
+    </div>
+    <div class="large-6 columns">
+        <h2>{% trans 'Recent Actions' %}</h2>
+
+        {% include 'complaints/_action_table.html' with object_list=action_list %}
+
+        {% if action_count == 0 %}
+            {% crispy action_form %}
+        {% else %}
+        <p>
+            <a href="{% url 'complaints_complaint_action_list' object.slug %}">{% blocktrans %}See all {{ action_count }} actions and action submission form{% endblocktrans %}</a>
+        </p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'complaints/base.html' %}
+{% load i18n crispy_forms_tags %}
+
+{% block body %}
+<div class="row">
+    <div class="small-12 columns">
+        <h1>{% trans 'Propose your action' %}</h1>
+        {% crispy form %}
+    </div>
+</div>
+{% endblock %}
