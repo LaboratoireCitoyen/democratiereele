@@ -19,11 +19,7 @@
     <div class="large-6 columns">
         <h2>{% trans 'Actions proposed' %}</h2>
         {% include 'complaints/_action_table.html' with object_list=actions %}
-    </div>
-</div>
 
-<div class="row">
-    <div class="large-6 columns">
         <h2>{% trans 'Comments posted' %}</h2>
         <dl id="comments">
             {% for comment in comments %}
@@ -36,9 +32,7 @@
             </dd>
             {% endfor %}
         </dl>
-    </div>
 
-    <div class="large-6 columns">
         <h2>{% trans 'Cities in movement' %}</h2>
         <ul>
             {% for city in cities %}
