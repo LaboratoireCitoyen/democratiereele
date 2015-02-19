@@ -9,6 +9,14 @@ from django_markup.fields import MarkupField
 from taggit.managers import TaggableManager
 
 
+class ComplaintTaggableManager(TaggableManager):
+    def get_joining_columns(self, reverse_join=False):
+        if reverse_join:
+            return (("poll_ptr_id", "object_id"),)
+        else:
+            return (("object_id", "poll_ptr_id"),)
+
+
 class Complaint(Poll):
     creation_datetime = models.DateTimeField(auto_now_add=True)
     modification_datetime = models.DateTimeField(auto_now=True)
@@ -22,7 +30,7 @@ class Complaint(Poll):
     city = models.ForeignKey('cities_light.city', 
             blank=True, null=True)
         
-    tags = TaggableManager()
+    tags = ComplaintTaggableManager()
 
     class Meta:
         ordering = ('creation_datetime',)
