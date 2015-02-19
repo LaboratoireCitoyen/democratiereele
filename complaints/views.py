@@ -1,11 +1,16 @@
 from django.views import generic
+from django.core.cache import cache
 from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.contrib.contenttypes.models import ContentType
 from django import http
 
 import rules_light
 
 from cities_light.models import City, Region, Country
+from decision.models import Vote, get_user_choice_cache_key
 
+from project_specific.models import ProjectComment
 from .models import Complaint, Action
 from .forms import ComplaintForm, ActionForm
 
@@ -26,6 +31,24 @@ class ComplaintDetailView(generic.DetailView):
     model = Complaint
     queryset = Complaint.objects.select_related('city', 'city__region',
             'city__region__country')
+
+    def get_object(self, *args, **kwargs):
+        o = super(ComplaintDetailView, self).get_object(*args, **kwargs)
+
+        polls = [o.pk]
+        polls += o.actions.values_list('pk', flat=True)
+        polls += ProjectComment.objects.filter(object_pk=o.pk,
+            content_type=ContentType.objects.get_for_model(ProjectComment)
+        ).values_list('pk', flat=True)
+
+        votes = Vote.objects.filter(poll__in=polls)
+
+        if self.request.user.is_authenticated():
+            for vote in votes.filter(user=self.request.user):
+                cache.set(get_user_choice_cache_key(vote.poll_id, self.request.user),
+                        vote.choice, None)
+
+        return o
 
     def get_context_data(self, *args, **kwargs):
         c = super(ComplaintDetailView, self).get_context_data(*args, **kwargs)
