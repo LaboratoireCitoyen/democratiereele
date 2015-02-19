@@ -36,11 +36,24 @@ class ComplaintListView(generic.ListView):
     model = Complaint
 
     def get_queryset(self):
-        q = Complaint.objects.all().select_related()
+        q = Complaint.objects.all().select_related('city', 'city__region', 'city__region__country')
 
-        city_id = self.kwargs.get('city_id', 'all')
-        if city_id != 'all':
-            q = q.filter(city__pk=city_id)
+        country_slug = self.kwargs.get('country_slug', 'all')
+        region_slug = self.kwargs.get('region_slug', 'all')
+        city_slug = self.kwargs.get('city_slug', 'all')
+        tag = self.kwargs.get('tag', 'all')
+
+        if country_slug != 'all':
+            q = q.filter(city__region__country__slug=country_slug)
+
+        if region_slug != 'all':
+            q = q.filter(city__region__slug=region_slug)
+
+        if city_slug != 'all':
+            q = q.filter(city__slug=city_slug)
+
+        if tag != 'all':
+            q = q.filter(tags__name__in=[tag])
 
         return q
 
