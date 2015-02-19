@@ -73,7 +73,7 @@
     <div class="large-6 columns">
         <h2>{% trans 'Actions' %}</h2>
 
-        {% include 'complaints/_action_table.html' with object_list=action_list %}
+        {% include 'complaints/_action_table.html' with object_list=object.actions.all %}
 
         {% crispy action_form %}
     </div>
