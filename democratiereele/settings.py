@@ -85,6 +85,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ALLOWED_HOSTS = []
 
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['FR']
+CITIES_LIGHT_TRANSLATION_LANGUAGES = ['fr']
+
 BOWER_INSTALLED_APPS = (
     'jquery',
     'foundation',
