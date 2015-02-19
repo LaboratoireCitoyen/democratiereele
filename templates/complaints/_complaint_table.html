@@ -12,7 +12,7 @@
     {% endif %}
     
     <div>
-        <p>{{ object.description }}</p>
+        {% include 'decision/_poll_vote.html' %}
 
         {% if object.city %}
         <p>
@@ -21,7 +21,8 @@
         {% endif %}
 
         {% include 'complaints/_tags.html' with tag_list=object.tags.all %}
-        {% include 'decision/_poll_vote.html' %}
+
+        <p>{{ object.description }}</p>
     </div>
 </div>
 {% endfor %}

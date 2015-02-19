@@ -51,20 +51,21 @@
         <img class="complaint-photo" src="{{ object.photo|thumbnail_url:'rectangle_0' }}" />
     {% endif %}
 
-    <p>
-        {{ object.description }}
-    </p>
+    {% include 'decision/_poll_vote.html' %}
 
     {% if object.city %}
     <p>
-        {{ object.city }}
+    <a 
+        href="{% url 'complaints_complaint_list' object.city.region.country.slug object.city.region.slug object.city.slug 'all' %}"
+        title="{% blocktrans with city=object.city %}Complaints reported in {{ city }}{% endblocktrans %}"
+        >{{ object.city }}</a>
     </p>
     {% endif %}
 
     {% include 'complaints/_tags.html' with tag_list=object.tags.all %}
 
     <p>
-        {% include 'decision/_poll_vote.html' %}
+        {{ object.description }}
     </p>
 </div>
 
