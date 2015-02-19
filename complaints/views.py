@@ -48,6 +48,7 @@ class ComplaintListView(generic.ListView):
         self.region_slug = self.kwargs.get('region_slug', 'all')
         self.city_slug = self.kwargs.get('city_slug', 'all')
         self.tag = self.kwargs.get('tag', 'all')
+        self.voted = self.kwargs.get('voted', 'all')
 
         if self.country_slug != 'all':
             q = q.filter(city__region__country__slug=self.country_slug)
@@ -60,6 +61,11 @@ class ComplaintListView(generic.ListView):
 
         if self.tag != 'all':
             q = q.filter(tags__name__in=[self.tag])
+
+        if self.voted == 'yes':
+            q = q.filter(votes__user=self.request.user)
+        elif self.voted == 'no':
+            q = q.exclude(votes__user=self.request.user)
 
         return q
 

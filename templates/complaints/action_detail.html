@@ -8,17 +8,17 @@
         <a href="/">{% trans 'Home' %}</a>
     </li> 
     <li>
-        <a href="{% url 'complaints_complaint_list' 'all' 'all' 'all' 'all' %}" title="{% trans 'Complaints' %}">{% trans 'Complaints' %}</a>
+        <a href="{% url 'complaints_complaint_list' 'all' 'all' 'all' 'all' 'all' %}" title="{% trans 'Complaints' %}">{% trans 'Complaints' %}</a>
     </li>
     {% if object.complaint.city %}
     <li>
-        <a href="{% url 'complaints_complaint_list' object.complaint.city.region.country.slug 'all' 'all' 'all' %}">{{ object.complaint.city.region.country.name }}</a>
+        <a href="{% url 'complaints_complaint_list' object.complaint.city.region.country.slug 'all' 'all' 'all' 'all' %}">{{ object.complaint.city.region.country.name }}</a>
     </li>
     <li>
-        <a href="{% url 'complaints_complaint_list' object.complaint.city.region.country.slug object.complaint.city.region.slug 'all' 'all' %}">{{ object.complaint.city.region.name }}</a>
+        <a href="{% url 'complaints_complaint_list' object.complaint.city.region.country.slug object.complaint.city.region.slug 'all' 'all' 'all' %}">{{ object.complaint.city.region.name }}</a>
     </li>
     <li>
-        <a href="{% url 'complaints_complaint_list' object.complaint.city.region.country.slug object.complaint.city.region.slug object.complaint.city.slug 'all' %}">{{ object.complaint.city.name }}</a>
+        <a href="{% url 'complaints_complaint_list' object.complaint.city.region.country.slug object.complaint.city.region.slug object.complaint.city.slug 'all' 'all' %}">{{ object.complaint.city.name }}</a>
     </li>
     {% endif %}
     <li>

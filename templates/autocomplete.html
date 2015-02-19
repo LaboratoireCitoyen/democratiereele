@@ -16,6 +16,6 @@
 {% for tag in tags %}
     <a 
         class="choice" 
-        href="{% url 'complaints_complaint_list' 'all' 'all' 'all' tag.name %}"
+        href="{% url 'complaints_complaint_list' 'all' 'all' 'all' tag.name 'all' %}"
         title="{{ tag.name }}">{{ tag.name }}</a>
 {% endfor %}

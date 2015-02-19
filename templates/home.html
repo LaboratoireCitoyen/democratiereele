@@ -37,7 +37,7 @@
         <ul>
             {% for city in cities %}
             <li>
-                <a href="{% url 'complaints_complaint_list' city.region.country.slug city.region.slug city.slug 'all' %}"
+                <a href="{% url 'complaints_complaint_list' city.region.country.slug city.region.slug city.slug 'all' 'all' %}"
                    title="{{ city }}">{{ city }}</a>
             </li>
             {% endfor %}

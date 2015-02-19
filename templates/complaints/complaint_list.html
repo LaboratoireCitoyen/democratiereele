@@ -7,38 +7,38 @@
         <a href="/">{% trans 'Home' %}</a>
     </li> 
     <li>
-        <a href="{% url 'complaints_complaint_list' 'all' 'all' 'all' 'all' %}" title="{% trans 'Complaints' %}">{% trans 'Complaints' %}</a>
+        <a href="{% url 'complaints_complaint_list' 'all' 'all' 'all' 'all' 'all' %}" title="{% trans 'Complaints' %}">{% trans 'Complaints' %}</a>
     </li>
     {% if country %}
     <li>
-        <a href="{% url 'complaints_complaint_list' country.slug 'all' 'all' 'all' %}">{{ country.name }}</a>
+        <a href="{% url 'complaints_complaint_list' country.slug 'all' 'all' 'all' 'all' %}">{{ country.name }}</a>
     </li>
     {% endif %}
     {% if region %}
     <li>
-        <a href="{% url 'complaints_complaint_list' country.slug region.slug 'all' 'all' %}">{{ region.name }}</a>
+        <a href="{% url 'complaints_complaint_list' country.slug region.slug 'all' 'all' 'all' %}">{{ region.name }}</a>
     </li>
     {% endif %}
     {% if city %}
     <li>
-        <a href="{% url 'complaints_complaint_list' country.slug region.slug city.slug 'all' %}">{{ city.name }}</a>
+        <a href="{% url 'complaints_complaint_list' country.slug region.slug city.slug 'all' 'all' %}">{{ city.name }}</a>
     </li>
     {% endif %}
     {% if tag and city %}
     <li>
-        <a href="{% url 'complaints_complaint_list' country.slug region.slug city.slug tag %}">{{ tag }}</a>
+        <a href="{% url 'complaints_complaint_list' country.slug region.slug city.slug tag 'all' %}">{{ tag }}</a>
     </li>
     {% elif tag and region %}
     <li>
-        <a href="{% url 'complaints_complaint_list' country.slug region.slug 'all' tag %}">{{ tag }}</a>
+        <a href="{% url 'complaints_complaint_list' country.slug region.slug 'all' tag 'all' %}">{{ tag }}</a>
     </li>
     {% elif tag and country %}
     <li>
-        <a href="{% url 'complaints_complaint_list' country.slug 'all' 'all' tag %}">{{ tag }}</a>
+        <a href="{% url 'complaints_complaint_list' country.slug 'all' 'all' tag 'all' %}">{{ tag }}</a>
     </li>
     {% elif tag %}
     <li>
-        <a href="{% url 'complaints_complaint_list' 'all' 'all' 'all' tag %}">{{ tag }}</a>
+        <a href="{% url 'complaints_complaint_list' 'all' 'all' 'all' tag 'all' %}">{{ tag }}</a>
     </li>
     {% endif %}
 </ul>

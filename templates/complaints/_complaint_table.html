@@ -16,7 +16,7 @@
 
         {% if object.city %}
         <p>
-            <a href="{% url 'complaints_complaint_list' object.city.region.country.slug object.city.region.slug object.city.slug 'all' %}">{{ object.city }}</a>
+            <a href="{% url 'complaints_complaint_list' object.city.region.country.slug object.city.region.slug object.city.slug 'all' 'all' %}">{{ object.city }}</a>
         </p>
         {% endif %}
 

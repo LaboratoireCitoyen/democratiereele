@@ -24,7 +24,7 @@ urlpatterns = patterns('',
         name='complaints_complaint_detail'
     ),
     url(
-        r'^(?P<country_slug>([\w-]+|(all)))/(?P<region_slug>([\w-]+|(all)))/(?P<city_slug>([\w-]+|(all)))/(?P<tag>([\w-]+|(all)))/$', 
+        r'^(?P<country_slug>([\w-]+|(all)))/(?P<region_slug>([\w-]+|(all)))/(?P<city_slug>([\w-]+|(all)))/(?P<tag>([\w-]+|(all)))/(?P<voted>([\w-]+|(all)))/$',
         views.ComplaintListView.as_view(),
         name='complaints_complaint_list'
     ),
