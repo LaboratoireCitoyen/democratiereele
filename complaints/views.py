@@ -42,7 +42,7 @@ class ComplaintListView(generic.ListView):
 
     def get_queryset(self):
         q = Complaint.objects.all().select_related('city', 'city__region',
-                'city__region__country')
+                'city__region__country').prefetch_related('tags')
 
         self.country_slug = self.kwargs.get('country_slug', 'all')
         self.region_slug = self.kwargs.get('region_slug', 'all')
@@ -91,6 +91,7 @@ class ComplaintListView(generic.ListView):
 
         if self.tag != 'all':
             context['tag'] = self.tag
+
 
 @rules_light.class_decorator
 class ActionDetailView(generic.DetailView):
