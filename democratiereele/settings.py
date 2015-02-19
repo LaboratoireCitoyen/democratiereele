@@ -54,6 +54,7 @@ PIPELINE_CSS = {
             'foundation/css/foundation.css',
             'autocomplete_light/style.css',
             'fluent_comments/css/ajaxcomments.css',
+            'font-awesome/css/font-awesome.css',
         ),
         'output_filename': 'css/style.css',
         'extra_context': {
@@ -90,6 +91,7 @@ BOWER_INSTALLED_APPS = (
     'html5shiv',
     'respond',
     'less',
+    'font-awesome',
 )
 
 
